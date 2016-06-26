@@ -4,19 +4,36 @@
 
 import argparse
 
+def is_timing(channel_name):
+    """Does this channel name follow the timing system naming conventions?"""
+    ch_name_array = channel_name.replace(':','_').split('_')
+    if ch_name_array[1] == 'SYS-TIMING':
+        return True
+    else:
+        return False
+
 class MFO(object):
     """A master/fanout device."""
     def __init__(self, channel_name):
-        # TODO parse channel name
-        pass
+        # only SYS-TIMING objects are connected to MFOs
+        if not is_timing(channel_name):
+            raise ValueError("Channel not connected to MFO: " 
+                             + str(channel_name))
+        ch_name_array   = channel_name.upper().replace(':','_').split('_',7)
+        self.ifo        = ch_name_array[0]
+        self.subsys     = ch_name_array[1]
+        self.location   = ch_name_array[2]
+        self.mfo        = ch_name_array[3]
+        self.device_id  = ch_name_array[4]
+        # self.port       = ch_name_array[6]  # [5] is just word "PORT"
 
-    def __repr(self):
+    def __repr__(self):
         """Get the partial channel name for this MFO. The __repr__ and __str__
         methods are the same, since string representations of these objects
         are unambiguous.
         """
-        # TODO print the reconstructed channel name out
-        pass
+        return self.ifo + ':' + self.subsys + '_' + self.location +  '_'
+            + self.mfo + '_' + self.device_id
 
     def __str__(self):
         """Get the partial channel name for this MFO. The __repr__ and __str__
