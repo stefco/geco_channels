@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import json
+
 AUTHOR = 'Stefan Countryman'
 DESC="""A script/module for querying timing channels. Reference is always made
 to a physical layout, where Master/FanOut modules have slave devices connected
@@ -16,8 +18,11 @@ and declarations of timing-system layout.
 __version__ = 0.0
 LAST_UPDATED = 'Mon Jun 27 14:05:45 EDT 2016'
 PORTS_PER_MFO = 16
-#types of slaves are there?
+# what types of slaves are there?
 SLAVE_TYPES = ['CFC','DUOTONE','FANOUT','IRIGB','XOLOCK']
+# can't use these characters in device types or descriptions, since they are
+# used as delimiters in the internal string representation:
+RESERVED_CHARS = set(';:,')
 # what are the acceptable channel suffixes for each slave device? used to
 # generate possible channel names for a given configuration.
 CHANNEL_SUFFIXES = {
@@ -182,13 +187,13 @@ class TimingSlave(MEDMScreen):
     connected to the first port (port 0) of a Master (with no other devices
     connected) is represented by:
 
-        'H1:SYS-TIMING_C_MA_A:DUOTONE,,,,,,,,,,,,,,,:0'
+        'H1:SYS-TIMING_C_MA_A;:DUOTONE;,;,;,;,;,;,;,;,;,;,;,;,;,;,;,;:0'
 
     If a TimingSlave is set at a port on the MFO where no device is connected,
     as in the following example, the resulting TimingSlave will have a
     dev_type set to None.
 
-        'H1:SYS-TIMING_C_MA_A:DUOTONE,,,,,,,,,,,,,,,:1'
+        'H1:SYS-TIMING_C_MA_A;:DUOTONE;,;,;,;,;,;,;,;,;,;,;,;,;,;,;,;:1'
 
     """
     def mfo(self):
@@ -220,12 +225,10 @@ class TimingSlave(MEDMScreen):
             return None
         else:
             dev = self.__dev__()
-            if len(dev) == 1:
-                return ''
-            elif len(dev) == 2:
+            if len(dev) == 2:
                 return dev[1]
             else:
-                raise ValueError('Too many items in device string: ' 
+                raise ValueError('Wrong number of items in device string: ' 
                                  + ';'.join(dev))
     def get_channels(self):
         """Return a list of all channel names associated with this Timing Slave
@@ -247,7 +250,7 @@ class MFO(TopMEDMScreen):
     the string representation. An example with a DuoTone connected to port 0
     and FanOut connected to port 4 looks like:
 
-        'H1:SYS-TIMING_C_MA_A:DUOTONE,,,,FANOUT,,,,,,,,,,,'
+        'H1:SYS-TIMING_C_MA_A;:DUOTONE;,;,;,;,;FANOUT;,;,;,;,;,;,;,;,;,;,;,;'
 
     Each Timing Slave can have an optional description following the device
     type and separated with a semicolon. Note that this description cannot
@@ -259,13 +262,15 @@ class MFO(TopMEDMScreen):
     above example, the FanOut connected to port 4 could be described as "test
     stand" using the following string:
 
-        'H1:SYS-TIMING_C_MA_A:DUOTONE,,,,FANOUT;test stand,,,,,,,,,,,'
+        'H1:SYS-TIMING_C_MA_A;:;,;,;,;,;FANOUT;test stand,;,;,;,;,;,;,;,;,;,;,;'
 
     The MFO itself can also have a device description, given after the portless
     name of the MFO and separated by a semicolon, as in the following:
 
-        'H1:SYS-TIMING_C_MA_A;corner msr:,,,,FANOUT;test stand,,,,,,,,,,,'
+        'H1:SYS-TIMING_C_MA_A;corner msr:,;,;,;,;FANOUT;,;,;,;,;,;,;,;,;,;,;,;'
 
+    Even if a description is not present, the semicolons remain in place to
+    ensure the uniqueness of any given string representation.
     """
     def ifo(self):
         """Return the Interferometer for the MFO that this string describes."""
@@ -278,7 +283,7 @@ class MFO(TopMEDMScreen):
         """Return the Location (Corner Station, X-End, or Y-End) for the MFO
         that this string describes."""
         return self.split(':')[1].split('_')[1]
-    def mfo(self):
+    def m_or_f(self):
         """Return whether the MFO that this string describes is a Master (M) or
         FanOut (F)."""
         return self.split(':')[1].split('_')[2]
@@ -305,14 +310,12 @@ class MFO(TopMEDMScreen):
         """If this MFO has a description string, return it. Otherwise, return
         an empty string."""
         mfo_list = ':'.join(self.split(':')[0:2]).split(';')
-        if len(mfo_list) == 1:
-            return ''
-        elif len(mfo_list) == 2:
+        if len(mfo_list) == 2:
             return mfo_list[1]
         else:
-            raise ValueError('Too many items in mfo string: ' 
+            raise ValueError('Wrong number of items in mfo string: ' 
                                 + ';'.join(dev))
-    def mfo_channels(self):
+    def get_mfo_channels(self):
         """Get a list of channels related to this MFO, ignoring any channels
         related to Timing Slave devices attached to this MFO."""
         suffixes = []
@@ -322,7 +325,7 @@ class MFO(TopMEDMScreen):
                          CHANNEL_SUFFIXES['mfo_port_related']]
         prefix = self.portless_name() + '_'
         return [prefix + suffix for suffix in suffixes]
-    def slave_channels_in_use(self):
+    def get_slave_channels_in_use(self):
         """Get a list of channels in use by this MFO's attached slaves. Does
         not include channels relating to this MFO; returns only Slave-related
         channels."""
@@ -335,19 +338,811 @@ class MFO(TopMEDMScreen):
     def get_channels_in_use(self):
         """Return a list of all channels in use by this MFO as well as any
         connected Timing Slaves."""
-        return self.mfo_channels() + self.slave_channels_in_use()
+        return self.get_mfo_channels() + self.get_slave_channels_in_use()
+    def to_dict(self):
+        """Return a dictionary representing this MFO. good for implementing
+        various serialization strategies."""
+        return {
+            'ifo': self.ifo(),
+            'subsystem': self.subsystem(),
+            'location': self.location(),
+            'm_or_f': self.m_or_f(),
+            'mfo_id': self.mfo_id(),
+            'description': self.description(),
+            'ports': [{
+                'dev_type': self.port(i).dev_type(),
+                'description': self.port(i).description()
+            } for i in range(PORTS_PER_MFO)]
+        }
+    def to_json(self):
+        """Return a pretty-formatted JSON string representing this MFO."""
+        return json.dumps(self.to_dict(), indent=4, separators=(',', ': '))
+    @classmethod
+    def from_dict(cls, d):
+        """Construct an MFO object from a dictionary."""
+        mfo_str = (d['ifo'] + ':' + '_'.join([d['subsystem'], d['location'],
+                                         d['m_or_f'],d['mfo_id']])
+             + ';' + d['description'] + ':')
+        # unused ports show up as None, but are represented as empty strings
+        ports = []
+        for p in d['ports']:
+            if p['dev_type'] is None and p['description'] is None:
+                ports.append({'dev_type': '', 'description': ''})
+            elif p['dev_type'] is None or p['description'] is None:
+                raise ValueError(('Bad MFO description: either dev_type and '
+                                  'description are both None, or both are '
+                                  'nonempty strings.'))
+            elif any((c in RESERVED_CHARS) for c in p['dev_type']):
+                raise ValueError(('Cannot use reserved chars '
+                                  + ''.join(RESERVED_CHARS)
+                                  + ' in dev_type: ' + p['dev_type']))
+            elif any((c in RESERVED_CHARS) for c in p['description']):
+                raise ValueError(('Cannot use reserved chars '
+                                  + ''.join(RESERVED_CHARS)
+                                  + ' in description: ' + p['description']))
+            else:
+                ports.append({'dev_type':    p['dev_type'],
+                              'description': p['description']})
+        ports_str = [p['dev_type'] + ';' + p['description']
+                     for p in ports]
+        port_str = ','.join(ports_str)
+        return cls(mfo_str + port_str)
+    @classmethod
+    def from_json(cls, json_str):
+        """Construct an MFO object from a JSON-formatted string."""
+        return cls.from_dict(json.loads(json_str))
 
 def lho_timing_system():
     """Return a list of top-level MEDM objects representing the timing
     system as installed at LIGO Hanford Observatory (LHO)."""
-    # TODO flesh out
-    return []
+    return [
+        MFO.from_dict({
+            "description": "LHO Master in Corner Main Storage Room (MSR)",
+            "subsystem": "SYS-TIMING",
+            "mfo_id": "A",
+            "location": "C",
+            "ifo": "H1",
+            "ports": [
+                {
+                    "dev_type": "IRIGB",
+                    "description": "IRIG-B"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "CFC",
+                    "description": "Comparator"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "FANOUT",
+                    "description": "CER-SUS C_FO_B"
+                },
+                {
+                    "dev_type": "FANOUT",
+                    "description": "CER-ISC C_FO_A"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "MX"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "MY"
+                },
+                {
+                    "dev_type": "FANOUT",
+                    "description": "EX X_FO_A"
+                },
+                {
+                    "dev_type": "FANOUT",
+                    "description": "EY Y_FO_A"
+                }
+            ],
+            "m_or_f": "MA"
+        }),
+        MFO.from_dict({
+            "description": "LHO FanOut in X-End Station Receiving (EX)",
+            "subsystem": "SYS-TIMING",
+            "mfo_id": "A",
+            "location": "X",
+            "ifo": "H1",
+            "ports": [
+                {
+                    "dev_type": "IRIGB",
+                    "description": "IRIG-B"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSAUXEX"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSEX"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIEX"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "ISCEX"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF24.4"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF70.0"
+                },
+                {
+                    "dev_type": "CFC",
+                    "description": "Comparator"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                }
+            ],
+            "m_or_f": "FO"
+        }),
+        MFO.from_dict({
+            "description": "LHO FanOut in Y-End Station Receiving (EY)",
+            "subsystem": "SYS-TIMING",
+            "mfo_id": "A",
+            "location": "Y",
+            "ifo": "H1",
+            "ports": [
+                {
+                    "dev_type": "IRIGB",
+                    "description": "IRIG-B"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSAUXEY"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSEY"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIEY"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "ISCEY"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF24.4"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF70.0"
+                },
+                {
+                    "dev_type": "CFC",
+                    "description": "Comparator"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                }
+            ],
+            "m_or_f": "FO"
+        }),
+        MFO.from_dict({
+            "description": "LHO FanOut B in CER",
+            "subsystem": "SYS-TIMING",
+            "mfo_id": "A",
+            "location": "Y",
+            "ifo": "H1",
+            "ports": [
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "PSL0"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "OAF0"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSAUXH2"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSAUXH34"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSAUXH56"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSAUXB123"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSH2A"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSH2B"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSH34"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSH56"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSB123"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIH16"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIH23"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                }
+            ],
+            "m_or_f": "FO"
+        }),
+        MFO.from_dict({
+            "description": "LHO FanOut A in CER",
+            "subsystem": "SYS-TIMING",
+            "mfo_id": "A",
+            "location": "Y",
+            "ifo": "H1",
+            "ports": [
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIH45"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIB1"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIB2"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIB3"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "LSC0"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "ASC0"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF21.5"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF24.0"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF35.5"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF71.0"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF80.0"
+                },
+                {
+                    "dev_type": "CFC",
+                    "description": "Comparator"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                }
+            ],
+            "m_or_f": "FO"
+        })
+    ]
 
 def llo_timing_system():
     """Return a list of top-level MEDM objects representing the timing
     system as installed at LIGO Livingston Observatory (LLO)."""
-    # TODO flesh out
-    return []
+    return [
+        MFO.from_dict({
+            "description": "LLO Master in Corner Main Storage Room (MSR)",
+            "subsystem": "SYS-TIMING",
+            "mfo_id": "A",
+            "location": "C",
+            "ifo": "L1",
+            "ports": [
+                {
+                    "dev_type": "IRIGB",
+                    "description": "IRIG-B"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "CFC",
+                    "description": "Comparator"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "FANOUT",
+                    "description": "CER-SUS C_FO_B"
+                },
+                {
+                    "dev_type": "FANOUT",
+                    "description": "CER-ISC C_FO_A"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "FANOUT",
+                    "description": "Test Stand FanOut"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "FANOUT",
+                    "description": "EX X_FO_A"
+                },
+                {
+                    "dev_type": "FANOUT",
+                    "description": "EY Y_FO_A"
+                }
+            ],
+            "m_or_f": "MA"
+        }),
+        MFO.from_dict({
+            "description": "LLO FanOut in X-End Station Receiving (EX)",
+            "subsystem": "SYS-TIMING",
+            "mfo_id": "A",
+            "location": "X",
+            "ifo": "L1",
+            "ports": [
+                {
+                    "dev_type": "IRIGB",
+                    "description": "IRIG-B"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSAUXEX"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSEX"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIEX"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "ISCEX"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF24.4"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF70.0"
+                },
+                {
+                    "dev_type": "CFC",
+                    "description": "Comparator"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                }
+            ],
+            "m_or_f": "FO"
+        }),
+        MFO.from_dict({
+            "description": "LLO FanOut in Y-End Station Receiving (EY)",
+            "subsystem": "SYS-TIMING",
+            "mfo_id": "A",
+            "location": "Y",
+            "ifo": "L1",
+            "ports": [
+                {
+                    "dev_type": "IRIGB",
+                    "description": "IRIG-B"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSAUXEY"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSEY"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIEY"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "ISCEY"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF24.4"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF70.0"
+                },
+                {
+                    "dev_type": "CFC",
+                    "description": "Comparator"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                }
+            ],
+            "m_or_f": "FO"
+        }),
+        MFO.from_dict({
+            "description": "LLO FanOut B in CER",
+            "subsystem": "SYS-TIMING",
+            "mfo_id": "A",
+            "location": "Y",
+            "ifo": "L1",
+            "ports": [
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "PSL0"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "OAF0"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSAUXH2"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSAUXH34"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSAUXH56"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSAUXB123"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSH2A"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSH2B"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSH34"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSH56"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SUSB123"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIH16"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIH23"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                }
+            ],
+            "m_or_f": "FO"
+        }),
+        MFO.from_dict({
+            "description": "LLO FanOut A in CER",
+            "subsystem": "SYS-TIMING",
+            "mfo_id": "A",
+            "location": "Y",
+            "ifo": "L1",
+            "ports": [
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIH45"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIB1"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIB2"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "SEIB3"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "LSC0"
+                },
+                {
+                    "dev_type": "DUOTONE",
+                    "description": "ASC0"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF21.5"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF24.0"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF35.5"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF71.0"
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF80.0"
+                },
+                {
+                    "dev_type": "CFC",
+                    "description": "Comparator"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": "XOLOCK",
+                    "description": "RF80.0"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                },
+                {
+                    "dev_type": None,
+                    "description": None
+                }
+            ],
+            "m_or_f": "FO"
+        })
+    ]
 
 def aligo_timing_system():
     """Return a list of top-level MEDM objects representing the timing
