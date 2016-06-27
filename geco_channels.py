@@ -1,10 +1,20 @@
 #!/usr/bin/env python
 
-# a script/module for querying timing channels.
-
-import argparse
-
+AUTHOR = 'Stefan Countryman'
+DESC="""A script/module for querying timing channels. Reference is always made
+to a physical layout, where Master/FanOut modules have slave devices connected
+to them, and additional timing diagnostic devices exist. This is by analogy to
+MEDM screens. All devices are represented internally as strings, which are kept
+as close in form as possible to valid, descriptive EPICS channel names for
+each device, in order to facilitate intuitive debugging, device comparisons,
+and declarations of timing-system layout.
+"""
+# For the sake of consolodating code and avoiding dependency hell, this library
+# also includes data about the current timing configuration at both sites. This
+# is perhaps not the "nicest" way to do things, but is a good compromise given
+# the fact that only aLIGO will use this library anyway.
 __version__ = 0.0
+LAST_UPDATED = 'Mon Jun 27 14:05:45 EDT 2016'
 PORTS_PER_MFO = 16
 #types of slaves are there?
 SLAVE_TYPES = ['CFC','DUOTONE','FANOUT','IRIGB','XOLOCK']
@@ -156,19 +166,67 @@ CHANNEL_SUFFIXES = {
     ]
 }
 
-
-class TimingSlave(object):
-    """Any type of device that can get its timing signal from a timing
-    Master/FanOut.
+class MEDMScreen(str):
+    """An abstract class for strings representing MEDM screens.
     """
-    def __init__(self, dev_type, mfo, port_number, description=''):
-        if dev_type in SLAVE_TYPES:
-            self.type = dev_type
+
+class TopMEDMScreen(MEDMScreen):
+    """An abstract class for strings representing top-level MEDM screens.
+    """
+
+class TimingSlave(MEDMScreen):
+    """Any type of device that can get its timing signal from a timing
+    Master/FanOut. Is represented as a string starting with the string
+    representation of the MFO to which is connected and ending with a colon
+    followed by the port this Slave connects to. For example, a DuoTone
+    connected to the first port (port 0) of a Master (with no other devices
+    connected) is represented by:
+
+        'H1:SYS-TIMING_C_MA_A:DUOTONE,,,,,,,,,,,,,,,:0'
+
+    If a TimingSlave is set at a port on the MFO where no device is connected,
+    as in the following example, the resulting TimingSlave will have a
+    dev_type set to None.
+
+        'H1:SYS-TIMING_C_MA_A:DUOTONE,,,,,,,,,,,,,,,:1'
+
+    """
+    def mfo(self):
+        """Return the Master/FanOut that this timing slave is connected to."""
+        return MFO(':'.join(self.split(':')[0:3]))
+    def port_number(self):
+        """Return the number of the port on the Master/FanOut that this Timing
+        Slave device is connected to."""
+        return int(self.split(':')[3])
+    def __dev__(self):
+        """Split up this device's string into device type and, if included, a
+        device description."""
+        return self.split(':')[2].split(',')[self.port_number()].split(';')
+    def dev_type(self):
+        """Get the device type of this Timing Slave."""
+        dev_type = self.__dev__()[0]
+        if dev_type == '':
+            return None
         else:
-            raise ValueError('Not a Timing Slave device type: ' + dev_type)
-        self.mfo = mfo
-        self.port_number = port_number
-        self.description = description
+            if dev_type in SLAVE_TYPES:
+                return dev_type
+            else:
+                raise ValueError('Not a Timing Slave device type: ' + dev_type)
+    def description(self):
+        """Get the description for this Timing Slave, if it exists. If this
+        device does not exist, return None. If this device has no description,
+        return an empty string."""
+        if self.dev_type() is None:
+            return None
+        else:
+            dev = self.__dev__()
+            if len(dev) == 1:
+                return ''
+            elif len(dev) == 2:
+                return dev[1]
+            else:
+                raise ValueError('Too many items in device string: ' 
+                                 + ';'.join(dev))
     def get_channels(self):
         """Return a list of all channel names associated with this Timing Slave
         (note that, if this slave happens to be a FanOut, it will have its
@@ -176,16 +234,13 @@ class TimingSlave(object):
         will only be accessible if the fanout is treated separately as an MFO.
         This parallels the way channels and devices are treated in MEDM screens
         on site.)"""
-        suffixes = CHANNEL_SUFFIXES['slave_common']
-        suffixes += CHANNEL_SUFFIXES[self.type]
-        return [self.mfo.portless_name() + '_PORT_' + self.port_number +
-                x for x in suffixes]
+        suffixes = []
+        suffixes += CHANNEL_SUFFIXES['slave_common']
+        suffixes += CHANNEL_SUFFIXES[self.dev_type()]
+        return [self.mfo().portless_name() + '_PORT_' + str(self.port_number())
+                + '_' + x for x in suffixes]
 
-class MEDMScreen(str):
-    """An abstract class for strings representing top-level MEDM screens.
-    """
-
-class MFO(MEDMScreen):
+class MFO(TopMEDMScreen):
     """A Master/FanOut device, as seen in MEDM screens. This type of object
     also uniquely specifies the devices connected to this MFO's ports using
     a comma-delimited list of connected devices following a colon at the end of
@@ -202,9 +257,14 @@ class MFO(MEDMScreen):
 
     since they are used syntactically within the string. Starting from the
     above example, the FanOut connected to port 4 could be described as "test
-    stand":
+    stand" using the following string:
 
         'H1:SYS-TIMING_C_MA_A:DUOTONE,,,,FANOUT;test stand,,,,,,,,,,,'
+
+    The MFO itself can also have a device description, given after the portless
+    name of the MFO and separated by a semicolon, as in the following:
+
+        'H1:SYS-TIMING_C_MA_A;corner msr:,,,,FANOUT;test stand,,,,,,,,,,,'
 
     """
     def ifo(self):
@@ -225,31 +285,38 @@ class MFO(MEDMScreen):
     def mfo_id(self):
         """There can be multiple FanOuts in a given location. We distinguish
         between them by assigning letters, starting at A. Return the MFO ID
-        letter for the MFO that this string describes.."""
-        return self.split(':')[1].split('_')[3]
+        letter for the MFO that this string describes."""
+        # Make sure to leave out the description for this MFO, which can follow
+        # the mfo_id and is separated by a semicolon (when present).
+        return self.split(':')[1].split('_')[3].split(';')[0]
     def port(self, port_number):
         """There are 16 ports, numbered 0-15, to which Timing Slave modules can
         be connected by fiber link. Return the Timing Slavee connected to a
         particular port. If no device is connected, return None."""
-        dev = self.split(':')[2].split(',')[port_number].split(';')
-        dev_type = dev[0]
-        if dev_type == '':
-            return None
-        else:
-            if len(dev) == 1:
-                return TimingSlave(dev_type, self, port_number)
-            elif len(dev) == 2:
-                return TimingSlave(dev_type, self, port_number,
-                                   description=dev[1])
+        return TimingSlave(str(self) + ':' + str(port_number))
     def portless_name(self):
         """Return a string representing this MFO but with no information about
-        used ports. This is not a valid MFO object, but can be used to
-        construct valid EPICS channels."""
-        return ':'.join(self.split(':')[0:2])
+        used ports and no channel description. This is not a valid MFO object,
+        but can be used to construct valid EPICS channels."""
+        # the last bit involving the semicolong ensures that we don't return
+        # the channel description (if it is present).
+        return ':'.join(self.split(':')[0:2]).split(';')[0]
+    def description(self):
+        """If this MFO has a description string, return it. Otherwise, return
+        an empty string."""
+        mfo_list = ':'.join(self.split(':')[0:2]).split(';')
+        if len(mfo_list) == 1:
+            return ''
+        elif len(mfo_list) == 2:
+            return mfo_list[1]
+        else:
+            raise ValueError('Too many items in mfo string: ' 
+                                + ';'.join(dev))
     def mfo_channels(self):
         """Get a list of channels related to this MFO, ignoring any channels
         related to Timing Slave devices attached to this MFO."""
-        suffixes = CHANNEL_SUFFIXES['mfo_common']
+        suffixes = []
+        suffixes += CHANNEL_SUFFIXES['mfo_common']
         for i in range(PORTS_PER_MFO):
             suffixes += ['PORT_' + str(i) + '_' + x for x in
                          CHANNEL_SUFFIXES['mfo_port_related']]
@@ -262,7 +329,7 @@ class MFO(MEDMScreen):
         channels = []
         for i in range(PORTS_PER_MFO):
             slave = self.port(i)
-            if not slave is None:
+            if not slave.dev_type() is None:
                 channels += slave.get_channels()
         return channels
     def get_channels_in_use(self):
@@ -270,11 +337,33 @@ class MFO(MEDMScreen):
         connected Timing Slaves."""
         return self.mfo_channels() + self.slave_channels_in_use()
 
+def lho_timing_system():
+    """Return a list of top-level MEDM objects representing the timing
+    system as installed at LIGO Hanford Observatory (LHO)."""
+    # TODO flesh out
+    return []
+
+def llo_timing_system():
+    """Return a list of top-level MEDM objects representing the timing
+    system as installed at LIGO Livingston Observatory (LLO)."""
+    # TODO flesh out
+    return []
+
+def aligo_timing_system():
+    """Return a list of top-level MEDM objects representing the timing
+    system as installed at all LIGO observatories."""
+    return lho_timing_system() + llo_timing_system()
+
 # if running from the command line, we should run this stuff
 def main():
-    parser = argparse.ArgumentParser(description=('Query against channel names '
-                                     'used by the aLIGO timing system. '
-                                     'List all matching channel names.'))
+    import argparse
+
+    parser = argparse.ArgumentParser(description=DESC + (
+                                     'When called from the command line, '
+                                     'query against channel names '
+                                     'used by the aLIGO timing system and '
+                                     'return a newline-delimited list of '
+                                     'matching channel names.'))
     parser.add_argument('-i','--ifo',
                         help=('Interferometer; "h" is Hanford, "l" is '
                              'Livingston.'))
