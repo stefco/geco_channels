@@ -161,13 +161,14 @@ class TimingSlave(object):
     """Any type of device that can get its timing signal from a timing
     Master/FanOut.
     """
-    def __init__(self, dev_type, mfo, port_number):
+    def __init__(self, dev_type, mfo, port_number, description=''):
         if dev_type in SLAVE_TYPES:
             self.type = dev_type
         else:
             raise ValueError('Not a Timing Slave device type: ' + dev_type)
         self.mfo = mfo
         self.port_number = port_number
+        self.description = description
     def get_channels(self):
         """Return a list of all channel names associated with this Timing Slave
         (note that, if this slave happens to be a FanOut, it will have its
@@ -189,9 +190,21 @@ class MFO(MEDMScreen):
     also uniquely specifies the devices connected to this MFO's ports using
     a comma-delimited list of connected devices following a colon at the end of
     the string representation. An example with a DuoTone connected to port 0
-    and FanOut connected to port 4looks like:
+    and FanOut connected to port 4 looks like:
 
         'H1:SYS-TIMING_C_MA_A:DUOTONE,,,,FANOUT,,,,,,,,,,,'
+
+    Each Timing Slave can have an optional description following the device
+    type and separated with a semicolon. Note that this description cannot
+    contain the following characters:
+
+        ;:,
+
+    since they are used syntactically within the string. Starting from the
+    above example, the FanOut connected to port 4 could be described as "test
+    stand":
+
+        'H1:SYS-TIMING_C_MA_A:DUOTONE,,,,FANOUT;test stand,,,,,,,,,,,'
 
     """
     def ifo(self):
@@ -218,11 +231,16 @@ class MFO(MEDMScreen):
         """There are 16 ports, numbered 0-15, to which Timing Slave modules can
         be connected by fiber link. Return the Timing Slavee connected to a
         particular port. If no device is connected, return None."""
-        dev_type = self.split(':')[2].split(',')[port_number]
+        dev = self.split(':')[2].split(',')[port_number].split(';')
+        dev_type = dev[0]
         if dev_type == '':
             return None
         else:
-            return TimingSlave(dev_type, self, port_number)
+            if len(dev) == 1:
+                return TimingSlave(dev_type, self, port_number)
+            elif len(dev) == 2:
+                return TimingSlave(dev_type, self, port_number,
+                                   description=dev[1])
     def portless_name(self):
         """Return a string representing this MFO but with no information about
         used ports. This is not a valid MFO object, but can be used to
