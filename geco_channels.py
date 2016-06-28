@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import json
+import re
 # import sqlite3
 
 # note to maintainers: please modify LAST_UPDATED and __version__ when
@@ -375,6 +376,9 @@ class MFO(TopMEDMScreen):
             if not slave.dev_type() is None:
                 channels += slave.get_channels()
         return channels
+    def slave_types(self):
+        """Return a list of slave types connected to this device."""
+        return set([slave.dev_type() for slave in self.port()])
     def to_dict(self):
         """Return a dictionary representing this MFO. good for implementing
         various serialization strategies."""
@@ -1248,23 +1252,29 @@ class DevListSelector(object):
                 return self.cancel()
             # can apply any of these comparators
             if '!=' in constraint:
-                (param, val) = constraint.split('!=')
+                (param, val) = re.split('[ \t]*!=[ \t]*', constraint)
                 test = lambda a, b: a != b
             elif '>=' in constraint:
-                (param, val) = constraint.split('>=')
+                (param, val) = re.split('[ \t]*>=[ \t]*', constraint)
                 test = lambda a, b: a >= b
             elif '<=' in constraint:
-                (param, val) = constraint.split('<=')
+                (param, val) = re.split('[ \t]*<=[ \t]*', constraint)
                 test = lambda a, b: a <= b
             elif '=' in constraint:
-                (param, val) = constraint.split('=')
+                (param, val) = re.split('[ \t]*=[ \t]*', constraint)
                 test = lambda a, b: a == b
             elif '>' in constraint:
-                (param, val) = constraint.split('>')
+                (param, val) = re.split('[ \t]*>[ \t]*', constraint)
                 test = lambda a, b: a > b
             elif '<' in constraint:
-                (param, val) = constraint.split('<')
+                (param, val) = re.split('[ \t]*<[ \t]*', constraint)
                 test = lambda a, b: a < b
+            elif bool(re.search('[ \t]IN[ \t]', constraint)):
+                (param, val) = re.split('[ \t]+IN[ \t]+', constraint)
+                test = lambda a, b: a in b
+            elif bool(re.search('[ \t]CONTAINS[ \t]', constraint)):
+                (param, val) = re.split('[ \t]+CONTAINS[ \t]+', constraint)
+                test = lambda a, b: b in a
             else:
                 raise ValueError('This is a no good constraint, pal: ' +
                                  str(constraint))
@@ -1404,6 +1414,7 @@ def main():
     elif args.query_type == 's':
         for slave in constrain_slave(args):
             print(slave.name())
+    # need to fix the below logic
     elif args.query_type == 'c':
         for mfo in constrain_mfo(args):
             for ch in mfo.get_channels():
