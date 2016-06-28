@@ -21,8 +21,8 @@ and declarations of timing-system layout.
 # also includes data about the current timing configuration at both sites. This
 # is perhaps not the "nicest" way to do things, but is a good compromise given
 # the fact that only aLIGO will use this library anyway.
-__version__ = 0.2
-LAST_UPDATED = 'Mon Jun 27 23:36:24 EDT 2016'
+__version__ = 0.3
+LAST_UPDATED = 'Tue Jun 28 02:46:45 EDT 2016'
 PORTS_PER_MFO = 16
 # what types of slaves are there?
 SLAVE_TYPES = ['CFC','DUOTONE','FANOUT','IRIGB','XOLOCK']
@@ -377,8 +377,15 @@ class MFO(TopMEDMScreen):
                 channels += slave.get_channels()
         return channels
     def slave_types(self):
-        """Return a list of slave types connected to this device."""
+        """Return a set of slave types connected to this device."""
         return set([slave.dev_type() for slave in self.port()])
+    def used_ports(self):
+        """Return a list of ports used by this device."""
+        res = []
+        for slave in self.port():
+            if not slave.dev_type() is None:
+                res.append(slave.port_number())
+        return res
     def to_dict(self):
         """Return a dictionary representing this MFO. good for implementing
         various serialization strategies."""
@@ -1398,7 +1405,9 @@ def main():
             'subsystem='+args.subsystem,
             'location='+args.location,
             'm_or_f='+args.master_or_fanout,
-            'dev_id='+args.device_id)
+            'dev_id='+args.device_id,
+            'slave_types CONTAINS '+args.dev_type,
+            'used_ports CONTAINS '+args.port_number)
     def constrain_slave(args):
         slaves = DevList()
         for mfo in constrain_mfo(args):
@@ -1411,21 +1420,16 @@ def main():
     if args.query_type == 'm':
         for mfo in constrain_mfo(args):
             print(mfo.portless_name())
-    elif args.query_type == 's':
+    if args.query_type == 's':
         for slave in constrain_slave(args):
             print(slave.name())
-    # need to fix the below logic
-    elif args.query_type == 'c':
-        for mfo in constrain_mfo(args):
-            for ch in mfo.get_channels():
-                print(ch)
-    elif args.query_type == 'cs':
-        for mfo in constrain_mfo(args):
-            for ch in mfo.get_child_channels():
-                print(ch)
-    elif args.query_type == 'cm':
+    if args.query_type == 'c' or args.query_type == 'cm':
         for mfo in constrain_mfo(args):
             for ch in mfo.get_own_channels():
+                print(ch)
+    if args.query_type == 'c' or args.query_type == 'cs':
+        for slave in constrain_slave(args):
+            for ch in slave.get_own_channels():
                 print(ch)
 
 if __name__ == "__main__":
