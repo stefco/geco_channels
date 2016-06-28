@@ -20,7 +20,7 @@ and declarations of timing-system layout.
 # also includes data about the current timing configuration at both sites. This
 # is perhaps not the "nicest" way to do things, but is a good compromise given
 # the fact that only aLIGO will use this library anyway.
-__version__ = 0.1
+__version__ = 0.2
 LAST_UPDATED = 'Mon Jun 27 23:36:24 EDT 2016'
 PORTS_PER_MFO = 16
 # what types of slaves are there?
@@ -179,6 +179,18 @@ CHANNEL_SUFFIXES = {
 class MEDMScreen(str):
     """An abstract class for strings representing MEDM screens.
     """
+    def get_own_channels(self):
+        """Return a list of all channels in use by this device but not its
+        children."""
+        return []
+    def get_child_channels(self):
+        """Return a list of all channels in use by this device's child
+        devices, if they exist (otherwise, return an empty list)."""
+        return []
+    def get_channels(self):
+        """Return a list of all channels in use by this device as well as any
+        connected child devices."""
+        return self.get_own_channels() + self.get_child_channels()
 
 class TopMEDMScreen(MEDMScreen):
     """An abstract class for strings representing top-level MEDM screens.
@@ -235,7 +247,7 @@ class TimingSlave(MEDMScreen):
             else:
                 raise ValueError('Wrong number of items in device string: ' 
                                  + ';'.join(dev))
-    def get_channels(self):
+    def get_own_channels(self):
         """Return a list of all channel names associated with this Timing Slave
         (note that, if this slave happens to be a FanOut, it will have its
         own diagnostic channels, along with channels for its own Slaves; these
@@ -247,6 +259,13 @@ class TimingSlave(MEDMScreen):
         suffixes += CHANNEL_SUFFIXES[self.dev_type()]
         return [self.mfo().portless_name() + '_PORT_' + str(self.port_number())
                 + '_' + x for x in suffixes]
+    def name(self):
+        """Return a string which describes this device in human-readable form
+        but which does not uniquely specify its MFO configuration nor provide
+        the basis for generating usable EPICS channel names (though it does
+        come close)."""
+        return (self.mfo().portless_name() + '_PORT_' + str(self.port_number())
+                + '_SLAVE_' + self.dev_type())
 
 class MFO(TopMEDMScreen):
     """A Master/FanOut device, as seen in MEDM screens. This type of object
@@ -299,11 +318,27 @@ class MFO(TopMEDMScreen):
         # Make sure to leave out the description for this MFO, which can follow
         # the dev_id and is separated by a semicolon (when present).
         return self.split(':')[1].split('_')[3].split(';')[0]
-    def port(self, port_number):
+    def port(self, start=None, stop=None, step=None):
         """There are 16 ports, numbered 0-15, to which Timing Slave modules can
         be connected by fiber link. Return the Timing Slavee connected to a
-        particular port. If no device is connected, return None."""
-        return TimingSlave(str(self) + ':' + str(port_number))
+        particular port. A slice of ports can be taken using syntax similar to
+        that of range(start(, stop(, step))), where out-of-bounds indices are
+        automatically and silently truncated and a list of results is returned.
+        If no argument is given, return all devices."""
+        if start is None:
+            return [TimingSlave(str(self) + ':' + str(i))
+                    for i in range(0, PORTS_PER_MFO)]
+        if stop is None:
+            return TimingSlave(str(self) + ':' + str(start))
+        else:
+            if step is None:
+                step = 1
+            if stop > PORTS_PER_MFO:
+                stop = PORTS_PER_MFO
+            if start < 0:
+                start = 0
+            return [TimingSlave(str(self) + ':' + str(i))
+                    for i in range(start, stop, step)]
     def portless_name(self):
         """Return a string representing this MFO but with no information about
         used ports and no channel description. This is not a valid MFO object,
@@ -320,7 +355,7 @@ class MFO(TopMEDMScreen):
         else:
             raise ValueError('Wrong number of items in mfo string: ' 
                                 + ';'.join(dev))
-    def get_mfo_channels(self):
+    def get_own_channels(self):
         """Get a list of channels related to this MFO, ignoring any channels
         related to Timing Slave devices attached to this MFO."""
         suffixes = []
@@ -330,7 +365,7 @@ class MFO(TopMEDMScreen):
                          CHANNEL_SUFFIXES['mfo_port_related']]
         prefix = self.portless_name() + '_'
         return [prefix + suffix for suffix in suffixes]
-    def get_slave_channels_in_use(self):
+    def get_child_channels(self):
         """Get a list of channels in use by this MFO's attached slaves. Does
         not include channels relating to this MFO; returns only Slave-related
         channels."""
@@ -340,10 +375,6 @@ class MFO(TopMEDMScreen):
             if not slave.dev_type() is None:
                 channels += slave.get_channels()
         return channels
-    def get_channels_in_use(self):
-        """Return a list of all channels in use by this MFO as well as any
-        connected Timing Slaves."""
-        return self.get_mfo_channels() + self.get_slave_channels_in_use()
     def to_dict(self):
         """Return a dictionary representing this MFO. good for implementing
         various serialization strategies."""
@@ -1156,7 +1187,8 @@ def aligo_timing_system():
 
 # and now, a pair of classes that will allow us to handily avoid using SQL
 class DevList(list):
-    def select(self, dev_type):
+    """A class for applying filters to lists of timing devices."""
+    def select(self, dev_type=object):
         return DevListSelector(self, dev_type)
 
 class DevListSelector(object):
@@ -1214,15 +1246,35 @@ class DevListSelector(object):
             constraint = constraints[0]
             if constraint == '':
                 return self.cancel()
-            # for now, can only use '=' in constraints
-            (param, val) = constraint.split('=')
+            # can apply any of these comparators
+            if '!=' in constraint:
+                (param, val) = constraint.split('!=')
+                test = lambda a, b: a != b
+            elif '>=' in constraint:
+                (param, val) = constraint.split('>=')
+                test = lambda a, b: a >= b
+            elif '<=' in constraint:
+                (param, val) = constraint.split('<=')
+                test = lambda a, b: a <= b
+            elif '=' in constraint:
+                (param, val) = constraint.split('=')
+                test = lambda a, b: a == b
+            elif '>' in constraint:
+                (param, val) = constraint.split('>')
+                test = lambda a, b: a > b
+            elif '<' in constraint:
+                (param, val) = constraint.split('<')
+                test = lambda a, b: a < b
+            else:
+                raise ValueError('This is a no good constraint, pal: ' +
+                                 str(constraint))
             if val == '*':
                 return self.cancel()
             else:
                 val = val.upper()   # case insensitive
                 res = DevList()
                 for dev in self.only():
-                    if str(dev.__getattribute__(param)()).upper() == val:
+                    if test(str(dev.__getattribute__(param)()).upper(), val):
                         res.append(dev)
                 return res
         else:
@@ -1282,8 +1334,8 @@ def parse_args():
     parser.add_argument('-i','--ifo',
                         help=('Interferometer; "h1" is Hanford, "l1" is '
                              'Livingston. DEFAULT: *'),
-                        choices=['h','l','*'], default='*')
-    parser.add_argument('-s','--subsys',
+                        choices=['h1','l1','*'], default='*')
+    parser.add_argument('-s','--subsystem',
                         help=('Most timing belongs to "SYS-TIMING", but some '
                              'channels are in other subsystems. DEFAULT: *'),
                         choices=['SYS-TIMING','*'], default='*')
@@ -1291,7 +1343,7 @@ def parse_args():
                         help=('Location; "c" is corner station, "x" is X end '
                              'station, "y" is Y end station. DEFAULT: *'),
                         choices=['c','x','y','*'], default='*')
-    parser.add_argument('-m','--m_or_f',
+    parser.add_argument('-m','--master_or_fanout',
                         help=('Is this device connected to a Master or FanOut '
                              'board? "ma" specifies a Master, "fo" a FanOut.'
                              'DEFAULT: *'),
@@ -1308,24 +1360,62 @@ def parse_args():
                         choices=[str(p) for p in range(PORTS_PER_MFO)] + ['*'],
                         default='*')
     parser.add_argument('-t','--dev_type',
-                        help=('The device type. "i" for IRIG-B Module, "x" for '
-                             'RFOscillator/oscillator locking, "d" for '
-                             'Slave/DuoTone assembly (usually inside an IO '
-                             'Chassis), "c" for Timing Comparator Module, or '
-                             '"f" for a fanout module. DEFAULT: *'),
-                        choices=['i','x','d','c','f','*'], default='*')
+                        help=('The device type. IRIG-B Module (irigb), '
+                             'RFOscillator/oscillator locking (xolock), '
+                             'Slave/DuoTone assembly (duotone), '
+                             'Timing Comparator Module (cfc), or '
+                             'a fanout module (fanout). DEFAULT: *'),
+                        choices=['irigb','xolock','duotone','cfc',
+                                 'fanout','*'],
+                        default='*')
     parser.add_argument('-q','--query_type',
                         help=('What type of query is this? Can return a list '
-                              'of all matching channels (c), all matching '
-                              'slave devices (s), or all matching MFO '
-                              'devices (m). DEFAULT: c'),
-                        choices=['c','s','m'], default='c')
+                              'of all matching channels (c), a list of only '
+                              'MFO-specific matching channels (cm), a list of '
+                              'only Timing-Slave-specific matching channels '
+                              '(cs), a list of descriptive strings for '
+                              'matching MFO devices (m), or a list of '
+                              'descriptive strings for matching Timing Slave '
+                              'devices (s). DEFAULT: c'),
+                        choices=['c','cm','cs','m','s'], default='c')
     return parser.parse_args()
 
 def main():
     args = parse_args()
-    # TODO: handle parsed arguments
-    # TODO: run a query and print results
+    def constrain_mfo(args):
+        return DevList(aligo_timing_system()).select(MFO).by(
+            'ifo='+args.ifo,
+            'subsystem='+args.subsystem,
+            'location='+args.location,
+            'm_or_f='+args.master_or_fanout,
+            'dev_id='+args.device_id)
+    def constrain_slave(args):
+        slaves = DevList()
+        for mfo in constrain_mfo(args):
+            slaves += mfo.port()
+        return slaves.select(TimingSlave).by(
+            'dev_type!=None',
+            'port_number='+args.port_number,
+            'dev_type='+args.dev_type)
+    # deal with each specific query_type
+    if args.query_type == 'm':
+        for mfo in constrain_mfo(args):
+            print(mfo.portless_name())
+    elif args.query_type == 's':
+        for slave in constrain_slave(args):
+            print(slave.name())
+    elif args.query_type == 'c':
+        for mfo in constrain_mfo(args):
+            for ch in mfo.get_channels():
+                print(ch)
+    elif args.query_type == 'cs':
+        for mfo in constrain_mfo(args):
+            for ch in mfo.get_child_channels():
+                print(ch)
+    elif args.query_type == 'cm':
+        for mfo in constrain_mfo(args):
+            for ch in mfo.get_own_channels():
+                print(ch)
 
 if __name__ == "__main__":
     main()
