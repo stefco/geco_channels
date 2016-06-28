@@ -21,7 +21,7 @@ and declarations of timing-system layout.
 # also includes data about the current timing configuration at both sites. This
 # is perhaps not the "nicest" way to do things, but is a good compromise given
 # the fact that only aLIGO will use this library anyway.
-__version__ = 0.3
+__version__ = 0.4
 LAST_UPDATED = 'Tue Jun 28 02:46:45 EDT 2016'
 PORTS_PER_MFO = 16
 # what types of slaves are there?
@@ -192,6 +192,15 @@ class MEDMScreen(str):
         """Return a list of all channels in use by this device as well as any
         connected child devices."""
         return self.get_own_channels() + self.get_child_channels()
+
+class DiagnosticScreen(MEDMScreen):
+    """An abstract class for strings representing diagnostic MEDM screens.
+    """
+
+class GPSScreen(DiagnosticScreen):
+    """An abstract class for strings representing diagnostic information for
+    GPS clocks.
+    """
 
 class TopMEDMScreen(MEDMScreen):
     """An abstract class for strings representing top-level MEDM screens.
@@ -438,6 +447,23 @@ class MFO(TopMEDMScreen):
     def from_json(cls, json_str):
         """Construct an MFO object from a JSON-formatted string."""
         return cls.from_dict(json.loads(json_str))
+
+class PPS(TopMEDMScreen, DiagnosticScreen):
+    """Channels associated with 1PPS diagnostic summary screen. A curated
+    subset of Comparator channels, each with its own description to aid in
+    diagnostic work.
+    """
+    # TODO: flesh out.
+
+class CNS(TopMEDMScreen, GPSScreen):
+    """Channels associated with CNS Clock diagnostics.
+    """
+    # TODO: flesh out.
+
+class Trimble(TopMEDMScreen, GPSScreen):
+    """Channels associated with Trimble Clock diagnostics.
+    """
+    # TODO: flesh out.
 
 def lho_timing_system():
     """Return a list of top-level MEDM objects representing the timing
