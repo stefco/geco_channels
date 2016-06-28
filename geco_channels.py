@@ -1,8 +1,13 @@
 #!/usr/bin/env python
 
 import json
+# import sqlite3
 
-AUTHOR = 'Stefan Countryman'
+# note to maintainers: please modify LAST_UPDATED and __version__ when
+# changing anything. use the __run_tests__() method to make sure everything
+# is working as expected.
+
+__authors__ = ['Stefan Countryman']
 DESC="""A script/module for querying timing channels. Reference is always made
 to a physical layout, where Master/FanOut modules have slave devices connected
 to them, and additional timing diagnostic devices exist. This is by analogy to
@@ -15,7 +20,7 @@ and declarations of timing-system layout.
 # also includes data about the current timing configuration at both sites. This
 # is perhaps not the "nicest" way to do things, but is a good compromise given
 # the fact that only aLIGO will use this library anyway.
-__version__ = 0.0
+__version__ = 0.1
 LAST_UPDATED = 'Mon Jun 27 14:05:45 EDT 2016'
 PORTS_PER_MFO = 16
 # what types of slaves are there?
@@ -1149,42 +1154,189 @@ def aligo_timing_system():
     system as installed at all LIGO observatories."""
     return lho_timing_system() + llo_timing_system()
 
-# if running from the command line, we should run this stuff
-def main():
-    import argparse
+# and now, some methods that will allow us to avoid using SQL (barely...)
 
-    parser = argparse.ArgumentParser(description=DESC + (
+def select_top_medm_screens_by_ifo(devs, ifo):
+    """Take a list of top-level devices and return those with matching
+    interferometer values. If 'ifo' is an empty string, no filtering is
+    performed."""
+    ifo = ifo.upper()               # case insensitive
+    results = []
+    if ifo == '':
+        return devs
+    for dev in devs:
+        if not isinstance(dev, TopMEDMScreen):
+            raise ValueError(('Can only filter by IFO on TopMEDMScreen '
+                              'items: ' + str(dev)))
+        if dev.ifo() == ifo:
+            results.append(dev)
+    return results
+
+def select_top_medm_screens_by_subsystem(devs, subsystem):
+    """Take a list of top-level devices and return those with matching
+    interferometer values. If 'ifo' is an empty string, no filtering is
+    performed."""
+    subsystem = subsystem.upper()   # case insensitive
+    results = []
+    if subsystem == '':
+        return devs
+    for dev in devs:
+        if not isinstance(dev, TopMEDMScreen):
+            raise ValueError(('Can only filter by subsystem on TopMEDMScreen '
+                              'items: ' + str(dev)))
+        if dev.subsystem() == subsystem:
+            results.append(dev)
+    return results
+
+def select_top_medm_screens_by_location(devs, location):
+    """Take a list of top-level devices and return those with matching
+    interferometer values. If 'ifo' is an empty string, no filtering is
+    performed."""
+    location = location.upper()     # case insensitive
+    results = []
+    if location == '':
+        return devs
+    for dev in devs:
+        if not isinstance(dev, TopMEDMScreen):
+            raise ValueError(('Can only filter by location on TopMEDMScreen '
+                              'items: ' + str(dev)))
+        if dev.location() == location:
+            results.append(dev)
+    return results
+
+def select_mfos_by_m_or_f(devs, m_or_f):
+    """Take a list of top-level devices and return those with matching
+    interferometer values. If 'ifo' is an empty string, no filtering is
+    performed. For a non-empty query string, only MFOs will be returned, but
+    any list of TopMEDMScreens can be used as input."""
+    m_or_f = m_or_f.upper()     # case insensitive
+    results = []
+    if m_or_f == '':
+        return devs
+    for dev in devs:
+        if not isinstance(dev, TopMEDMScreen):
+            raise ValueError(('Can only filter by m_or_f on TopMEDMScreen '
+                              'items: ' + str(dev)))
+        if isinstance(dev, MFO) and dev.m_or_f() == m_or_f:
+            results.append(dev)
+    return results
+
+def select_mfos_by_mfo_id(devs, mfo_id):
+    """Take a list of top-level devices and return those with matching
+    interferometer values. If 'ifo' is an empty string, no filtering is
+    performed. Only MFOs will be returned, but any TopMEDMScreen can be
+    used as input."""
+    mfo_id = mfo_id.upper()     # case insensitive
+    results = []
+    if mfo_id == '':
+        return devs
+    for dev in devs:
+        if not isinstance(dev, TopMEDMScreen):
+            raise ValueError(('Can only filter by mfo_id on TopMEDMScreen '
+                              'items: ' + str(dev)))
+        if isinstance(dev, MFO) and dev.mfo_id() == mfo_id:
+            results.append(dev)
+    return results
+
+# TODO: pick up from here and add selectors for other stuff. And update the
+# docstrings of the methods already written.
+
+def __run_tests__():
+    """Run tests to confirm that the script is behaving as expected."""
+    # serializing and deserializing is a good way to make sure all is well.
+    for d in aligo_timing_system():
+        if MFO.from_json(d.to_json()) != d:
+            raise AssertionError(('Serializing and deserializing changed '
+                                  'representation of MFO: ' + str(d) + ' vs. '
+                                  + str(MFO.from_json(d.to_json()))))
+        # make sure we catch bad description and dev_type input in our
+        # deserializer
+        for bad_char in RESERVED_CHARS:
+            dic1 = d.to_dict()
+            dic2 = d.to_dict()
+            dic1['ports'][0]['dev_type'] += bad_char + 'stuff'
+            dic2['ports'][0]['description'] += bad_char + 'stuff'
+            try:
+                MFO.from_dict(dic1)
+                raise AssertionError(('Bad character in dev_type allowed '
+                                      'through from_dict method: ' + bad_char))
+            except ValueError:
+                # a ValueError was thrown, as desired.
+                pass
+            try:
+                MFO.from_dict(dic2)
+                raise AssertionError(('Bad character in description allowed '
+                                      'through from_dict method: ' + bad_char))
+            except ValueError:
+                # a ValueError was thrown, as desired.
+                pass
+    return True
+
+# if running from the command line, we should run this stuff
+def parse_args():
+    """Parse command line arguments."""
+    import argparse
+    parser = argparse.ArgumentParser(description=(DESC + 
                                      'When called from the command line, '
                                      'query against channel names '
                                      'used by the aLIGO timing system and '
                                      'return a newline-delimited list of '
-                                     'matching channel names.'))
+                                     'matching channel names.'),
+                                     epilog=('NOTE: queries will currently '
+                                             'only return results related to '
+                                             'the Timing Distribution System. '
+                                             'Timing Diagnostic System '
+                                             'channels will be added in a '
+                                             'future release. This includes '
+                                             'ADC channels that are part of '
+                                             'the CAL subsystem.'))
     parser.add_argument('-i','--ifo',
                         help=('Interferometer; "h" is Hanford, "l" is '
-                             'Livingston.'))
+                             'Livingston. DEFAULT: empty string'),
+                        choices=['h','l',''], default='')
     parser.add_argument('-s','--subsys',
                         help=('Most timing belongs to "SYS-TIMING", but some '
-                             'channels are in other subsystems.'))
+                             'channels are in other subsystems. DEFAULT: '
+                             'empty string'),
+                        choices=['SYS-TIMING'], default='')
     parser.add_argument('-l','--location',
                         help=('Location; "c" is corner station, "x" is X end '
-                             'station, "y" is Y end station.'))
-    parser.add_argument('-m','--mfo',
+                             'station, "y" is Y end station. DEFAULT: '
+                             'empty string'),
+                        choices=['c','x','y',''], default='')
+    parser.add_argument('-m','--m_or_f',
                         help=('Is this device connected to a Master or FanOut '
-                             'board? "m" specifies a Master, "f" a FanOut.'))
+                             'board? "ma" specifies a Master, "fo" a FanOut.'
+                             'DEFAULT: empty string'),
+                        choices=['ma','fo',''], default='')
     parser.add_argument('-d','--device_id',
                         help=('"a", "b"... etc. specifies which FanOut (or '
                              'Master) this device connects to (since there '
-                             'can be multiple Fanouts at a given location.'))
+                             'can be multiple Fanouts at a given location.'
+                             'DEFAULT: empty string'),
+                        choices=['a','b','c',''], default='')
     parser.add_argument('-p','--port',
                         help=('The port number on the MFO to which this device '
-                             'connects; one of {0..15}.'))
+                             'connects. DEFAULT: empty string'),
+                        choices=[str(p) for p in range(PORTS_PER_MFO)] + [''],
+                        default='')
     parser.add_argument('-t','--type',
                         help=('The device type. "i" for IRIG-B Module, "x" for '
                              'RFOscillator/oscillator locking, "d" for '
                              'Slave/DuoTone assembly (usually inside an IO '
                              'Chassis), "c" for Timing Comparator Module, or '
-                             '"f" for a fanout module.'))
-    args = parser.parse_args()
+                             '"f" for a fanout module. DEFAULT: empty string'),
+                        choices=['i','x','d','c','f',''], default='')
+    parser.add_argument('-q','--query_type',
+                        help=('What type of query is this? Can return a list '
+                              'of all matching channels (c), all matching '
+                              'slave devices (s), or all matching MFO '
+                              'devices (m). DEFAULT: c'),
+                        choices=['c','s','m'], default='c')
+    return parser.parse_args()
+
+def main():
+    args = parse_args()
     # TODO: handle parsed arguments
     # TODO: run a query and print results
 
