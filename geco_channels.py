@@ -21,7 +21,7 @@ and declarations of timing-system layout.
 # is perhaps not the "nicest" way to do things, but is a good compromise given
 # the fact that only aLIGO will use this library anyway.
 __version__ = 0.1
-LAST_UPDATED = 'Mon Jun 27 14:05:45 EDT 2016'
+LAST_UPDATED = 'Mon Jun 27 23:36:24 EDT 2016'
 PORTS_PER_MFO = 16
 # what types of slaves are there?
 SLAVE_TYPES = ['CFC','DUOTONE','FANOUT','IRIGB','XOLOCK']
@@ -292,12 +292,12 @@ class MFO(TopMEDMScreen):
         """Return whether the MFO that this string describes is a Master (M) or
         FanOut (F)."""
         return self.split(':')[1].split('_')[2]
-    def mfo_id(self):
+    def dev_id(self):
         """There can be multiple FanOuts in a given location. We distinguish
-        between them by assigning letters, starting at A. Return the MFO ID
-        letter for the MFO that this string describes."""
+        between them by assigning letters, starting at A. Return the device ID
+        letter for the device that this string describes."""
         # Make sure to leave out the description for this MFO, which can follow
-        # the mfo_id and is separated by a semicolon (when present).
+        # the dev_id and is separated by a semicolon (when present).
         return self.split(':')[1].split('_')[3].split(';')[0]
     def port(self, port_number):
         """There are 16 ports, numbered 0-15, to which Timing Slave modules can
@@ -352,7 +352,7 @@ class MFO(TopMEDMScreen):
             'subsystem': self.subsystem(),
             'location': self.location(),
             'm_or_f': self.m_or_f(),
-            'mfo_id': self.mfo_id(),
+            'dev_id': self.dev_id(),
             'description': self.description(),
             'ports': [{
                 'dev_type': self.port(i).dev_type(),
@@ -366,7 +366,7 @@ class MFO(TopMEDMScreen):
     def from_dict(cls, d):
         """Construct an MFO object from a dictionary."""
         mfo_str = (d['ifo'] + ':' + '_'.join([d['subsystem'], d['location'],
-                                         d['m_or_f'],d['mfo_id']])
+                                         d['m_or_f'],d['dev_id']])
              + ';' + d['description'] + ':')
         # unused ports show up as None, but are represented as empty strings
         ports = []
@@ -404,7 +404,7 @@ def lho_timing_system():
         MFO.from_dict({
             "description": "LHO Master in Corner Main Storage Room (MSR)",
             "subsystem": "SYS-TIMING",
-            "mfo_id": "A",
+            "dev_id": "A",
             "location": "C",
             "ifo": "H1",
             "ports": [
@@ -478,7 +478,7 @@ def lho_timing_system():
         MFO.from_dict({
             "description": "LHO FanOut in X-End Station Receiving (EX)",
             "subsystem": "SYS-TIMING",
-            "mfo_id": "A",
+            "dev_id": "A",
             "location": "X",
             "ifo": "H1",
             "ports": [
@@ -552,7 +552,7 @@ def lho_timing_system():
         MFO.from_dict({
             "description": "LHO FanOut in Y-End Station Receiving (EY)",
             "subsystem": "SYS-TIMING",
-            "mfo_id": "A",
+            "dev_id": "A",
             "location": "Y",
             "ifo": "H1",
             "ports": [
@@ -626,8 +626,8 @@ def lho_timing_system():
         MFO.from_dict({
             "description": "LHO FanOut B in CER",
             "subsystem": "SYS-TIMING",
-            "mfo_id": "A",
-            "location": "Y",
+            "dev_id": "B",
+            "location": "C",
             "ifo": "H1",
             "ports": [
                 {
@@ -700,8 +700,8 @@ def lho_timing_system():
         MFO.from_dict({
             "description": "LHO FanOut A in CER",
             "subsystem": "SYS-TIMING",
-            "mfo_id": "A",
-            "location": "Y",
+            "dev_id": "A",
+            "location": "C",
             "ifo": "H1",
             "ports": [
                 {
@@ -780,7 +780,7 @@ def llo_timing_system():
         MFO.from_dict({
             "description": "LLO Master in Corner Main Storage Room (MSR)",
             "subsystem": "SYS-TIMING",
-            "mfo_id": "A",
+            "dev_id": "A",
             "location": "C",
             "ifo": "L1",
             "ports": [
@@ -854,7 +854,7 @@ def llo_timing_system():
         MFO.from_dict({
             "description": "LLO FanOut in X-End Station Receiving (EX)",
             "subsystem": "SYS-TIMING",
-            "mfo_id": "A",
+            "dev_id": "A",
             "location": "X",
             "ifo": "L1",
             "ports": [
@@ -928,7 +928,7 @@ def llo_timing_system():
         MFO.from_dict({
             "description": "LLO FanOut in Y-End Station Receiving (EY)",
             "subsystem": "SYS-TIMING",
-            "mfo_id": "A",
+            "dev_id": "A",
             "location": "Y",
             "ifo": "L1",
             "ports": [
@@ -1002,8 +1002,8 @@ def llo_timing_system():
         MFO.from_dict({
             "description": "LLO FanOut B in CER",
             "subsystem": "SYS-TIMING",
-            "mfo_id": "A",
-            "location": "Y",
+            "dev_id": "B",
+            "location": "C",
             "ifo": "L1",
             "ports": [
                 {
@@ -1076,8 +1076,8 @@ def llo_timing_system():
         MFO.from_dict({
             "description": "LLO FanOut A in CER",
             "subsystem": "SYS-TIMING",
-            "mfo_id": "A",
-            "location": "Y",
+            "dev_id": "A",
+            "location": "C",
             "ifo": "L1",
             "ports": [
                 {
@@ -1154,92 +1154,81 @@ def aligo_timing_system():
     system as installed at all LIGO observatories."""
     return lho_timing_system() + llo_timing_system()
 
-# and now, some methods that will allow us to avoid using SQL (barely...)
+# and now, a pair of classes that will allow us to handily avoid using SQL
+class DevList(list):
+    def select(self, dev_type):
+        return DevListSelector(self, dev_type)
 
-def select_top_medm_screens_by_ifo(devs, ifo):
-    """Take a list of top-level devices and return those with matching
-    interferometer values. If 'ifo' is an empty string, no filtering is
-    performed."""
-    ifo = ifo.upper()               # case insensitive
-    results = []
-    if ifo == '':
-        return devs
-    for dev in devs:
-        if not isinstance(dev, TopMEDMScreen):
-            raise ValueError(('Can only filter by IFO on TopMEDMScreen '
-                              'items: ' + str(dev)))
-        if dev.ifo() == ifo:
-            results.append(dev)
-    return results
+class DevListSelector(object):
+    """A class that specifies a specific type to which members of a DevList
+    should belong, and which provides a function for implementing that
+    restriction while narrowing search results using a list of parameters and
+    their required values. Basically just exists to allow for the nice syntax
 
-def select_top_medm_screens_by_subsystem(devs, subsystem):
-    """Take a list of top-level devices and return those with matching
-    interferometer values. If 'ifo' is an empty string, no filtering is
-    performed."""
-    subsystem = subsystem.upper()   # case insensitive
-    results = []
-    if subsystem == '':
-        return devs
-    for dev in devs:
-        if not isinstance(dev, TopMEDMScreen):
-            raise ValueError(('Can only filter by subsystem on TopMEDMScreen '
-                              'items: ' + str(dev)))
-        if dev.subsystem() == subsystem:
-            results.append(dev)
-    return results
+        DevList(stuff).select(MFO).by('ifo=h')
 
-def select_top_medm_screens_by_location(devs, location):
-    """Take a list of top-level devices and return those with matching
-    interferometer values. If 'ifo' is an empty string, no filtering is
-    performed."""
-    location = location.upper()     # case insensitive
-    results = []
-    if location == '':
-        return devs
-    for dev in devs:
-        if not isinstance(dev, TopMEDMScreen):
-            raise ValueError(('Can only filter by location on TopMEDMScreen '
-                              'items: ' + str(dev)))
-        if dev.location() == location:
-            results.append(dev)
-    return results
+    which allows for easier querying. If by() is called with no constraints,
+    with empty argument strings, or with constraints equal to the wildcard
+    symbol '*' (like below):
 
-def select_mfos_by_m_or_f(devs, m_or_f):
-    """Take a list of top-level devices and return those with matching
-    interferometer values. If 'ifo' is an empty string, no filtering is
-    performed. For a non-empty query string, only MFOs will be returned, but
-    any list of TopMEDMScreens can be used as input."""
-    m_or_f = m_or_f.upper()     # case insensitive
-    results = []
-    if m_or_f == '':
-        return devs
-    for dev in devs:
-        if not isinstance(dev, TopMEDMScreen):
-            raise ValueError(('Can only filter by m_or_f on TopMEDMScreen '
-                              'items: ' + str(dev)))
-        if isinstance(dev, MFO) and dev.m_or_f() == m_or_f:
-            results.append(dev)
-    return results
+        # all will be equal to DevList(stuff)
+        DevList(stuff).select(MFO).by('ifo=*')
+        DevList(stuff).select(MFO).by('')
+        DevList(stuff).select(MFO).by()
+        DevList(stuff).select(MFO).cancel()
 
-def select_mfos_by_mfo_id(devs, mfo_id):
-    """Take a list of top-level devices and return those with matching
-    interferometer values. If 'ifo' is an empty string, no filtering is
-    performed. Only MFOs will be returned, but any TopMEDMScreen can be
-    used as input."""
-    mfo_id = mfo_id.upper()     # case insensitive
-    results = []
-    if mfo_id == '':
-        return devs
-    for dev in devs:
-        if not isinstance(dev, TopMEDMScreen):
-            raise ValueError(('Can only filter by mfo_id on TopMEDMScreen '
-                              'items: ' + str(dev)))
-        if isinstance(dev, MFO) and dev.mfo_id() == mfo_id:
-            results.append(dev)
-    return results
+    then no selection occurs and the original DevList is returned (equivalent
+    to calling cancel()). If no filter on constraints is made, but only
+    a specific type of device is desired in the DevList, call only():
 
-# TODO: pick up from here and add selectors for other stuff. And update the
-# docstrings of the methods already written.
+        DevList(stuff).select(MFO).only()
+
+    will return the same DevList but with all non-MFO instances removed.
+    """
+    def __init__(self, dev_list, dev_type):
+        if not isinstance(dev_list, DevList):
+            raise ValueError('DevListSelector can only select DevList.')
+        self.dev_list = dev_list
+        self.dev_type = dev_type
+    def cancel(self):
+        """Cancel this selection and return the original DevList, with no
+        constraints applied."""
+        return self.dev_list
+    def only(self):
+        """Apply the type constraint specified by this selector without
+        applying further parameter constraints."""
+        res = DevList()
+        for dev in self.dev_list:
+            if isinstance(dev, self.dev_type):
+                res.append(dev)
+        return res
+    def by(self, *constraints):
+        """Only devices in DevListSelector's DevList which match the given
+        constraints and the required type will be returned if nontrivial
+        constraints are given. If the constraint strings are empty, or if
+        the constraints are set equal to a wildcard '*', or if no constraints
+        are given, then the original DevList is returned with no changes."""
+        if len(constraints) == 0:
+            return self.cancel()
+        if len(constraints) == 1:
+            constraint = constraints[0]
+            if constraint == '':
+                return self.cancel()
+            # for now, can only use '=' in constraints
+            (param, val) = constraint.split('=')
+            if val == '*':
+                return self.cancel()
+            else:
+                val = val.upper()   # case insensitive
+                res = DevList()
+                for dev in self.only():
+                    if str(dev.__getattribute__(param)()).upper() == val:
+                        res.append(dev)
+                return res
+        else:
+            constraint = constraints[0]
+            the_rest = constraints[1:]
+            return self.by(constraint).select(self.dev_type).by(*the_rest)
 
 def __run_tests__():
     """Run tests to confirm that the script is behaving as expected."""
@@ -1291,42 +1280,40 @@ def parse_args():
                                              'ADC channels that are part of '
                                              'the CAL subsystem.'))
     parser.add_argument('-i','--ifo',
-                        help=('Interferometer; "h" is Hanford, "l" is '
-                             'Livingston. DEFAULT: empty string'),
-                        choices=['h','l',''], default='')
+                        help=('Interferometer; "h1" is Hanford, "l1" is '
+                             'Livingston. DEFAULT: *'),
+                        choices=['h','l','*'], default='*')
     parser.add_argument('-s','--subsys',
                         help=('Most timing belongs to "SYS-TIMING", but some '
-                             'channels are in other subsystems. DEFAULT: '
-                             'empty string'),
-                        choices=['SYS-TIMING'], default='')
+                             'channels are in other subsystems. DEFAULT: *'),
+                        choices=['SYS-TIMING','*'], default='*')
     parser.add_argument('-l','--location',
                         help=('Location; "c" is corner station, "x" is X end '
-                             'station, "y" is Y end station. DEFAULT: '
-                             'empty string'),
-                        choices=['c','x','y',''], default='')
+                             'station, "y" is Y end station. DEFAULT: *'),
+                        choices=['c','x','y','*'], default='*')
     parser.add_argument('-m','--m_or_f',
                         help=('Is this device connected to a Master or FanOut '
                              'board? "ma" specifies a Master, "fo" a FanOut.'
-                             'DEFAULT: empty string'),
-                        choices=['ma','fo',''], default='')
+                             'DEFAULT: *'),
+                        choices=['ma','fo','*'], default='*')
     parser.add_argument('-d','--device_id',
                         help=('"a", "b"... etc. specifies which FanOut (or '
                              'Master) this device connects to (since there '
-                             'can be multiple Fanouts at a given location.'
-                             'DEFAULT: empty string'),
-                        choices=['a','b','c',''], default='')
-    parser.add_argument('-p','--port',
+                             'can be multiple FanOuts at a given location.'
+                             'DEFAULT: *'),
+                        choices=['a','b','c','*'], default='*')
+    parser.add_argument('-p','--port_number',
                         help=('The port number on the MFO to which this device '
-                             'connects. DEFAULT: empty string'),
-                        choices=[str(p) for p in range(PORTS_PER_MFO)] + [''],
-                        default='')
-    parser.add_argument('-t','--type',
+                             'connects. DEFAULT: *'),
+                        choices=[str(p) for p in range(PORTS_PER_MFO)] + ['*'],
+                        default='*')
+    parser.add_argument('-t','--dev_type',
                         help=('The device type. "i" for IRIG-B Module, "x" for '
                              'RFOscillator/oscillator locking, "d" for '
                              'Slave/DuoTone assembly (usually inside an IO '
                              'Chassis), "c" for Timing Comparator Module, or '
-                             '"f" for a fanout module. DEFAULT: empty string'),
-                        choices=['i','x','d','c','f',''], default='')
+                             '"f" for a fanout module. DEFAULT: *'),
+                        choices=['i','x','d','c','f','*'], default='*')
     parser.add_argument('-q','--query_type',
                         help=('What type of query is this? Can return a list '
                               'of all matching channels (c), all matching '
