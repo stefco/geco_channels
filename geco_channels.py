@@ -505,12 +505,12 @@ def lho_timing_system():
                     "description": None
                 },
                 {
-                    "dev_type": None,
-                    "description": None
+                    "dev_type": "FANOUT",
+                    "description": "DTS"
                 },
                 {
-                    "dev_type": None,
-                    "description": None
+                    "dev_type": "FANOUT",
+                    "description": "Staging"
                 },
                 {
                     "dev_type": None,
@@ -692,7 +692,7 @@ def lho_timing_system():
             "m_or_f": "FO"
         }),
         MFO.from_dict({
-            "description": "LHO FanOut B in CER",
+            "description": "LHO FanOut B CER SUS in CER",
             "subsystem": "SYS-TIMING",
             "dev_id": "B",
             "location": "C",
@@ -766,7 +766,7 @@ def lho_timing_system():
             "m_or_f": "FO"
         }),
         MFO.from_dict({
-            "description": "LHO FanOut A in CER",
+            "description": "LHO FanOut A CER ISC in CER",
             "subsystem": "SYS-TIMING",
             "dev_id": "A",
             "location": "C",
@@ -821,8 +821,8 @@ def lho_timing_system():
                     "description": "Comparator"
                 },
                 {
-                    "dev_type": None,
-                    "description": None
+                    "dev_type": "XOLOCK",
+                    "description": "RF79.2"
                 },
                 {
                     "dev_type": None,
@@ -885,16 +885,16 @@ def llo_timing_system():
                     "description": None
                 },
                 {
-                    "dev_type": None,
-                    "description": None
-                },
-                {
-                    "dev_type": None,
-                    "description": None
+                    "dev_type": "FANOUT",
+                    "description": "DTS"
                 },
                 {
                     "dev_type": "FANOUT",
-                    "description": "Test Stand FanOut"
+                    "description": "Staging"
+                },
+                {
+                    "dev_type": None,
+                    "description": None
                 },
                 {
                     "dev_type": None,
@@ -1068,7 +1068,7 @@ def llo_timing_system():
             "m_or_f": "FO"
         }),
         MFO.from_dict({
-            "description": "LLO FanOut B in CER",
+            "description": "LLO FanOut B CER SUS in CER",
             "subsystem": "SYS-TIMING",
             "dev_id": "B",
             "location": "C",
@@ -1142,7 +1142,7 @@ def llo_timing_system():
             "m_or_f": "FO"
         }),
         MFO.from_dict({
-            "description": "LLO FanOut A in CER",
+            "description": "LLO FanOut A CER ISC in CER",
             "subsystem": "SYS-TIMING",
             "dev_id": "A",
             "location": "C",
@@ -1197,12 +1197,12 @@ def llo_timing_system():
                     "description": "Comparator"
                 },
                 {
-                    "dev_type": None,
-                    "description": None
+                    "dev_type": "XOLOCK",
+                    "description": "RF79.2"
                 },
                 {
                     "dev_type": "XOLOCK",
-                    "description": "RF80.0"
+                    "description": "Now says unused previously RF80.0"
                 },
                 {
                     "dev_type": None,
