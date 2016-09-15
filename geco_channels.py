@@ -2,6 +2,7 @@
 
 import json
 import re
+import copy
 # import sqlite3
 
 # note to maintainers: please modify LAST_UPDATED and __version__ when
@@ -1222,6 +1223,20 @@ def aligo_timing_system():
     system as installed at all LIGO observatories."""
     return lho_timing_system() + llo_timing_system()
 
+def all_possible_channels(mfo_list):
+    """Return a list of top-level MEDM objects the union of whose channel
+    names provide a comprehensive list of all possible valid channel names
+    for every possible configuration of the timing system. Is unique up to
+    MFO configuration."""
+    all_mfo = []
+    for mfo in mfo_list:
+        for slave in SLAVE_TYPES:
+            mfodict = copy.deepcopy(mfo.to_dict())
+            slavearray = [{'description': 'dummy dev', 'dev_type': slave}]*16
+            mfodict['ports'] = slavearray
+            all_mfo.append(MFO.from_dict(mfodict))
+    return all_mfo
+
 # and now, a pair of classes that will allow us to handily avoid using SQL
 class DevList(list):
     """A class for applying filters to lists of timing devices."""
@@ -1374,6 +1389,18 @@ def parse_args():
                                              'future release. This includes '
                                              'ADC channels that are part of '
                                              'the CAL subsystem.'))
+    parser.add_argument('-c','--configuration',
+                        help=('Which system configuration should channel name '
+                              'lists be drawn from? "i" indicates the actual '
+                              'system installation, so that channels returned '
+                              'will correspond to actual, in use devices. "a" '
+                              'indicates all possible permutations of slave '
+                              'device connections for a given MFO '
+                              'configuration, so that any possible '
+                              'rearrangement of slave module connections will '
+                              'be accounted for in the final channel list. '
+                              'DEFAULT: i'),
+                        choices=['i','a'], default='i')
     parser.add_argument('-i','--ifo',
                         help=('Interferometer; "h1" is Hanford, "l1" is '
                              'Livingston. DEFAULT: *'),
@@ -1426,7 +1453,11 @@ def parse_args():
 def main():
     args = parse_args()
     def constrain_mfo(args):
-        return DevList(aligo_timing_system()).select(MFO).by(
+        if args.configuration == 'i':
+            system = aligo_timing_system()
+        elif args.configuration == 'a':
+            system = all_possible_channels(aligo_timing_system())
+        return DevList(system).select(MFO).by(
             'ifo='+args.ifo,
             'subsystem='+args.subsystem,
             'location='+args.location,
