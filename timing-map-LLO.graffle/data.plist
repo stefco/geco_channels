@@ -5,7 +5,7 @@
 	<key>ApplicationVersion</key>
 	<array>
 		<string>com.omnigroup.OmniGraffle6</string>
-		<string>169.17.0.263360</string>
+		<string>169.20.0.267128</string>
 	</array>
 	<key>CreationDate</key>
 	<string>2015-06-20 18:07:25 +0000</string>
@@ -141,8 +141,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -161,7 +159,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{585, 621}, {81, 27}}</string>
+					<string>{{585, 549}, {81, 27}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -176,7 +174,7 @@
 					<key>Link</key>
 					<dict>
 						<key>url</key>
-						<string>l.dv/L1:SYS-TIMING_C_MA_A_PORT_10_SLAVE_FANOUT</string>
+						<string>l.dv/L1:SYS-TIMING_C_MA_A_PORT_8_SLAVE_FANOUT</string>
 					</dict>
 					<key>Style</key>
 					<dict>
@@ -201,8 +199,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -213,8 +209,10 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
-\f0\fs16 \cf0 Test Stand Fanout\
-}</string>
+\f0\fs16 \cf0 DTS\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\i \cf0 SLAVE_FANOUT}</string>
 					</dict>
 				</dict>
 				<dict>
@@ -259,8 +257,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -319,8 +315,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -379,8 +373,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -439,8 +431,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -499,8 +489,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -559,8 +547,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -619,8 +605,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -679,8 +663,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -739,8 +721,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -799,8 +779,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -859,8 +837,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -919,8 +895,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -979,8 +953,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1039,8 +1011,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1099,8 +1069,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1159,8 +1127,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1219,8 +1185,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1279,8 +1243,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1339,8 +1301,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1399,8 +1359,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1459,8 +1417,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1519,8 +1475,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1579,8 +1533,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1639,8 +1591,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1699,8 +1649,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1759,8 +1707,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1819,8 +1765,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1879,8 +1823,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1939,8 +1881,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -1999,8 +1939,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2059,8 +1997,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2117,21 +2053,8 @@
 						</dict>
 						<key>stroke</key>
 						<dict>
-							<key>Color</key>
-							<dict>
-								<key>b</key>
-								<real>1</real>
-								<key>g</key>
-								<real>1</real>
-								<key>r</key>
-								<real>1</real>
-							</dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>GapRatio</key>
-							<real>0.5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2190,8 +2113,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2250,8 +2171,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2310,8 +2229,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2370,8 +2287,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2430,8 +2345,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2490,8 +2403,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2550,8 +2461,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2610,8 +2519,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2670,8 +2577,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2730,8 +2635,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2790,8 +2693,6 @@
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -2806,6 +2707,64 @@
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
 \i \cf0 SLAVE_CFC}</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{585, 585}, {81, 27}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Font</key>
+						<string>Helvetica</string>
+						<key>Size</key>
+						<real>8</real>
+					</dict>
+					<key>ID</key>
+					<integer>786</integer>
+					<key>Link</key>
+					<dict>
+						<key>url</key>
+						<string>l.dv/L1:SYS-TIMING_C_MA_A_PORT_9_SLAVE_FANOUT</string>
+					</dict>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<real>0.89803900000000003</real>
+								<key>g</key>
+								<real>0.73333300000000001</real>
+								<key>r</key>
+								<real>0.51372499999999999</real>
+							</dict>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>CornerRadius</key>
+							<real>5</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>Text</key>
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\f0\fs16 \cf0 Staging\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\i \cf0 SLAVE_FANOUT}</string>
 					</dict>
 				</dict>
 			</array>
@@ -2869,9 +2828,9 @@
 		</dict>
 	</array>
 	<key>ModificationDate</key>
-	<string>2016-07-07 20:56:52 +0000</string>
+	<string>2016-09-17 22:31:42 +0000</string>
 	<key>Modifier</key>
-	<string>Jeff Lazar</string>
+	<string>Stefan Countryman</string>
 	<key>NotesVisible</key>
 	<string>NO</string>
 	<key>OriginVisible</key>
@@ -2922,7 +2881,7 @@
 	<array>
 		<dict>
 			<key>ActiveLayerIndex</key>
-			<integer>4</integer>
+			<integer>3</integer>
 			<key>AllLayers</key>
 			<array>
 				<string>Overlay</string>
@@ -2940,7 +2899,7 @@
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {1305, 1314}}</string>
+				<string>{{0, 0}, {2031, 1314}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
@@ -2959,7 +2918,7 @@
 			<key>CanvasOrigin</key>
 			<string>{0, 0}</string>
 			<key>CanvasSize</key>
-			<string>{1305, 1314}</string>
+			<string>{2031, 1314}</string>
 			<key>ColumnAlign</key>
 			<integer>1</integer>
 			<key>ColumnSpacing</key>
@@ -3561,7 +3520,7 @@ Full text of
 
 \f1\b #!/bin/sh\
 \
-sed -i '' 's|l.dv/\\([a-zA-Z0-9_-]*\\):\\([a-zA-Z0-9_-]*\\)|https\\://ldvw.ligo.caltech.edu/ldvw/view?act=baseChan\\&amp;amp;baseSelector=true\\&amp;amp;ifo=any\\&amp;amp;subsys=any\\&amp;amp;fsCmp=%3E%3D\\&amp;amp;fs=any\\&amp;amp;chnamefilt=\\1%3A\\2\\&amp;amp;currentOnly=show+only+currently+acquired\\&amp;amp;submitAct=Retrieve+Channel+List+%BB|g' "$1"}</string>
+sed -i.orig 's|l.dv/\\([a-zA-Z0-9_-]*\\):\\([a-zA-Z0-9_-]*\\)|https\\://ldvw.ligo.caltech.edu/ldvw/view?act=baseChan\\&amp;amp;baseSelector=true\\&amp;amp;ifo=any\\&amp;amp;subsys=any\\&amp;amp;fsCmp=%3E%3D\\&amp;amp;fs=any\\&amp;amp;chnamefilt=\\1%3A\\2\\&amp;amp;currentOnly=show+only+currently+acquired\\&amp;amp;submitAct=Retrieve+Channel+List+%BB|g' "$1"}</string>
 					</dict>
 				</dict>
 				<dict>
@@ -3608,8 +3567,6 @@ sed -i '' 's|l.dv/\\([a-zA-Z0-9_-]*\\):\\([a-zA-Z0-9_-]*\\)|https\\://ldvw.ligo.
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -3670,8 +3627,6 @@ sed -i '' 's|l.dv/\\([a-zA-Z0-9_-]*\\):\\([a-zA-Z0-9_-]*\\)|https\\://ldvw.ligo.
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -3732,8 +3687,6 @@ sed -i '' 's|l.dv/\\([a-zA-Z0-9_-]*\\):\\([a-zA-Z0-9_-]*\\)|https\\://ldvw.ligo.
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -3794,8 +3747,6 @@ sed -i '' 's|l.dv/\\([a-zA-Z0-9_-]*\\):\\([a-zA-Z0-9_-]*\\)|https\\://ldvw.ligo.
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -3856,8 +3807,6 @@ sed -i '' 's|l.dv/\\([a-zA-Z0-9_-]*\\):\\([a-zA-Z0-9_-]*\\)|https\\://ldvw.ligo.
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -4398,6 +4347,11 @@ Use
 					<integer>849</integer>
 					<key>Layer</key>
 					<integer>1</integer>
+					<key>Link</key>
+					<dict>
+						<key>url</key>
+						<string>l.dv/L1:SYS-TIMING_X_GPS_A</string>
+					</dict>
 					<key>Style</key>
 					<dict>
 						<key>fill</key>
@@ -4691,6 +4645,11 @@ Use
 					<integer>842</integer>
 					<key>Layer</key>
 					<integer>1</integer>
+					<key>Link</key>
+					<dict>
+						<key>url</key>
+						<string>l.dv/L1:SYS-TIMING_Y_GPS_A</string>
+					</dict>
 					<key>Style</key>
 					<dict>
 						<key>fill</key>
@@ -5322,6 +5281,11 @@ GPS clock to get time stamp}</string>
 					<integer>943</integer>
 					<key>Layer</key>
 					<integer>1</integer>
+					<key>Link</key>
+					<dict>
+						<key>url</key>
+						<string>l.dv/L1:SYS-TIMING_C_GPS_A</string>
+					</dict>
 					<key>Style</key>
 					<dict>
 						<key>fill</key>
@@ -5961,8 +5925,6 @@ GPS clock to get time stamp}</string>
 								<dict>
 									<key>CornerRadius</key>
 									<real>5</real>
-									<key>Pattern</key>
-									<integer>6</integer>
 								</dict>
 							</dict>
 							<key>Text</key>
@@ -7749,8 +7711,6 @@ GPS clock to get time stamp}</string>
 										<dict>
 											<key>CornerRadius</key>
 											<real>5</real>
-											<key>Pattern</key>
-											<integer>6</integer>
 										</dict>
 									</dict>
 									<key>Text</key>
@@ -8072,8 +8032,6 @@ GPS clock to get time stamp}</string>
 								<dict>
 									<key>CornerRadius</key>
 									<real>5</real>
-									<key>Pattern</key>
-									<integer>6</integer>
 								</dict>
 							</dict>
 							<key>Text</key>
@@ -9860,8 +9818,6 @@ GPS clock to get time stamp}</string>
 										<dict>
 											<key>CornerRadius</key>
 											<real>5</real>
-											<key>Pattern</key>
-											<integer>6</integer>
 										</dict>
 									</dict>
 									<key>Text</key>
@@ -10105,8 +10061,6 @@ GPS clock to get time stamp}</string>
 										<dict>
 											<key>CornerRadius</key>
 											<real>5</real>
-											<key>Pattern</key>
-											<integer>6</integer>
 										</dict>
 									</dict>
 									<key>Text</key>
@@ -11893,8 +11847,6 @@ GPS clock to get time stamp}</string>
 												<dict>
 													<key>CornerRadius</key>
 													<real>5</real>
-													<key>Pattern</key>
-													<integer>6</integer>
 												</dict>
 											</dict>
 											<key>Text</key>
@@ -12142,8 +12094,6 @@ GPS clock to get time stamp}</string>
 										<dict>
 											<key>CornerRadius</key>
 											<real>5</real>
-											<key>Pattern</key>
-											<integer>6</integer>
 										</dict>
 									</dict>
 									<key>Text</key>
@@ -13930,8 +13880,6 @@ GPS clock to get time stamp}</string>
 												<dict>
 													<key>CornerRadius</key>
 													<real>5</real>
-													<key>Pattern</key>
-													<integer>6</integer>
 												</dict>
 											</dict>
 											<key>Text</key>
@@ -15878,7 +15826,7 @@ GPS clock to get time stamp}</string>
 					<key>Points</key>
 					<array>
 						<string>{432, 517.5}</string>
-						<string>{522, 486}</string>
+						<string>{405, 486}</string>
 						<string>{522, 522}</string>
 					</array>
 					<key>Style</key>
@@ -15967,8 +15915,6 @@ GPS clock to get time stamp}</string>
 						<dict>
 							<key>CornerRadius</key>
 							<real>5</real>
-							<key>Pattern</key>
-							<integer>6</integer>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -15987,7 +15933,7 @@ GPS clock to get time stamp}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{315, 470.5}, {114.92059764220551, 23}}</string>
+					<string>{{431.18844335400695, 482}, {207.81155664599305, 13}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -16035,13 +15981,13 @@ GPS clock to get time stamp}</string>
 					<key>Text</key>
 					<dict>
 						<key>Align</key>
-						<integer>2</integer>
+						<integer>0</integer>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
 {\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
 {\colortbl;\red255\green255\blue255;\red118\green42\blue128;}
 \deftab720
-\pard\pardeftab720\qr\partightenfactor0
+\pard\pardeftab720\partightenfactor0
 
 \f0\b\fs16 \cf2 Master compares internal 1PPS to Trimble 1PPS}</string>
 						<key>VerticalPad</key>
@@ -16539,7 +16485,7 @@ GPS clock to get time stamp}</string>
 				<string>YES</string>
 			</dict>
 			<key>HPages</key>
-			<integer>3</integer>
+			<integer>4</integer>
 			<key>KeepToScale</key>
 			<false/>
 			<key>Layers</key>
@@ -16691,7 +16637,7 @@ GPS clock to get time stamp}</string>
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {630, 733}}</string>
+				<string>{{0, 0}, {2046, 1300}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
@@ -16710,7 +16656,7 @@ GPS clock to get time stamp}</string>
 			<key>CanvasOrigin</key>
 			<string>{0, 0}</string>
 			<key>CanvasSize</key>
-			<string>{630, 733}</string>
+			<string>{2046, 1300}</string>
 			<key>ColumnAlign</key>
 			<integer>1</integer>
 			<key>ColumnSpacing</key>
@@ -17371,7 +17317,7 @@ Left: CNS clock, back, detail}</string>
 				<string>YES</string>
 			</dict>
 			<key>HPages</key>
-			<integer>2</integer>
+			<integer>4</integer>
 			<key>KeepToScale</key>
 			<false/>
 			<key>Layers</key>
@@ -17443,7 +17389,7 @@ Left: CNS clock, back, detail}</string>
 			<key>UniqueID</key>
 			<integer>2</integer>
 			<key>VPages</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>ActiveLayerIndex</key>
@@ -17453,7 +17399,7 @@ Left: CNS clock, back, detail}</string>
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {630, 733}}</string>
+				<string>{{0, 0}, {2046, 1300}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
@@ -17472,7 +17418,7 @@ Left: CNS clock, back, detail}</string>
 			<key>CanvasOrigin</key>
 			<string>{0, 0}</string>
 			<key>CanvasSize</key>
-			<string>{630, 733}</string>
+			<string>{2046, 1300}</string>
 			<key>ColumnAlign</key>
 			<integer>1</integer>
 			<key>ColumnSpacing</key>
@@ -18135,7 +18081,7 @@ Left: CNS clock, back, detail}</string>
 				<string>YES</string>
 			</dict>
 			<key>HPages</key>
-			<integer>2</integer>
+			<integer>4</integer>
 			<key>KeepToScale</key>
 			<false/>
 			<key>Layers</key>
@@ -18195,7 +18141,7 @@ Left: CNS clock, back, detail}</string>
 			<key>UniqueID</key>
 			<integer>3</integer>
 			<key>VPages</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>ActiveLayerIndex</key>
@@ -19367,11 +19313,11 @@ Left: CNS clock, back, detail}</string>
 		<key>Expanded_Canvases</key>
 		<array>
 			<string>EX</string>
-			<string>Canvas 1</string>
 			<string>EY</string>
+			<string>Canvas 1</string>
 		</array>
 		<key>Frame</key>
-		<string>{{-0, 4}, {993, 773}}</string>
+		<string>{{0, 0}, {2560, 1380}}</string>
 		<key>ShowInfo</key>
 		<true/>
 		<key>ShowRuler</key>
@@ -19381,17 +19327,17 @@ Left: CNS clock, back, detail}</string>
 		<key>SidebarWidth</key>
 		<integer>200</integer>
 		<key>TopSlabHeight</key>
-		<real>250</real>
+		<real>33</real>
 		<key>VisibleRegion</key>
-		<string>{{348.35163831221399, 53.846152294316987}, {509.89009519516497, 659.34064033857533}}</string>
+		<string>{{308.24174935828398, 607.69229017872021}, {1115.9340337730387, 706.04393569589115}}</string>
 		<key>Zoom</key>
-		<real>0.9100000262260437</real>
+		<real>1.8200000524520874</real>
 		<key>ZoomValues</key>
 		<array>
 			<array>
 				<string>Canvas 1</string>
+				<real>1.8200000524520874</real>
 				<real>0.9100000262260437</real>
-				<real>0.90999999999999992</real>
 			</array>
 			<array>
 				<string>EX</string>
