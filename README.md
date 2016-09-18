@@ -10,6 +10,14 @@ for filtering the channel list.
 
 ## Site Maps
 
+### Hanford, WA
+
+![Hanford](/data/timing-map-LHO.png)
+
+### Livingston, LA
+
+![Livingston](/data/timing-map-LLO.png)
+
 There are two as-installed site maps saved in Omnigraffle format. You will need
 Omnigraffle (and hence a Mac) to open them. When exported to PDF, each timing
 device is clickable and will link to a page on LIGO DV Web with a list of
