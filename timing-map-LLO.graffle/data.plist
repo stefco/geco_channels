@@ -146,12 +146,12 @@
 					<key>Text</key>
 					<dict>
 						<key>Text</key>
-						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
-\f0\fs16 \cf0 RF80.0\
+\f0\fs16 \cf0 \'93Unused\'94\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
 \i \cf0 SLAVE_XOLOCK}</string>
@@ -2828,7 +2828,7 @@
 		</dict>
 	</array>
 	<key>ModificationDate</key>
-	<string>2016-09-17 22:31:42 +0000</string>
+	<string>2016-09-18 16:01:09 +0000</string>
 	<key>Modifier</key>
 	<string>Stefan Countryman</string>
 	<key>NotesVisible</key>
@@ -2899,7 +2899,7 @@
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {2031, 1314}}</string>
+				<string>{{0, 0}, {1305, 1314}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
@@ -2918,7 +2918,7 @@
 			<key>CanvasOrigin</key>
 			<string>{0, 0}</string>
 			<key>CanvasSize</key>
-			<string>{2031, 1314}</string>
+			<string>{1305, 1314}</string>
 			<key>ColumnAlign</key>
 			<integer>1</integer>
 			<key>ColumnSpacing</key>
@@ -3489,7 +3489,7 @@
 						<key>Align</key>
 						<integer>0</integer>
 						<key>Text</key>
-						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fmodern\fcharset0 Courier-Bold;}
 {\colortbl;\red255\green255\blue255;}
 \deftab720
@@ -3950,7 +3950,7 @@ sed -i.orig 's|l.dv/\\([a-zA-Z0-9_-]*\\):\\([a-zA-Z0-9_-]*\\)|https\\://ldvw.lig
 						<key>Align</key>
 						<integer>0</integer>
 						<key>Text</key>
-						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fmodern\fcharset0 Courier;\f2\fmodern\fcharset0 Courier-Bold;
 }
 {\colortbl;\red255\green255\blue255;}
@@ -4190,7 +4190,7 @@ Use
 						<key>Align</key>
 						<integer>0</integer>
 						<key>Text</key>
-						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
 {\colortbl;\red255\green255\blue255;}
 \deftab720
@@ -5806,6 +5806,66 @@ GPS clock to get time stamp}</string>
 					</dict>
 				</dict>
 				<dict>
+					<key>Bounds</key>
+					<string>{{585, 1071}, {81, 27}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Font</key>
+						<string>Helvetica</string>
+						<key>Size</key>
+						<real>8</real>
+					</dict>
+					<key>ID</key>
+					<integer>781</integer>
+					<key>Layer</key>
+					<integer>2</integer>
+					<key>Link</key>
+					<dict>
+						<key>url</key>
+						<string>l.dv/L1:SYS-TIMING_C_FO_A_PORT_12_SLAVE_XOLOCK</string>
+					</dict>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<real>0.78431399999999996</real>
+								<key>g</key>
+								<real>0.70980399999999999</real>
+								<key>r</key>
+								<real>0.96078399999999997</real>
+							</dict>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>CornerRadius</key>
+							<real>5</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>Text</key>
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\f0\fs16 \cf0 RF79.2\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\i \cf0 SLAVE_XOLOCK}</string>
+					</dict>
+				</dict>
+				<dict>
 					<key>Class</key>
 					<string>LineGraphic</string>
 					<key>FontInfo</key>
@@ -5930,7 +5990,7 @@ GPS clock to get time stamp}</string>
 							<key>Text</key>
 							<dict>
 								<key>Text</key>
-								<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+								<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -6857,7 +6917,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -6907,7 +6967,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -6957,7 +7017,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7007,7 +7067,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7057,7 +7117,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7107,7 +7167,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7157,7 +7217,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7207,7 +7267,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7257,7 +7317,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7307,7 +7367,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7357,7 +7417,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7407,7 +7467,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7457,7 +7517,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7507,7 +7567,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7557,7 +7617,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7661,7 +7721,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -7716,15 +7776,15 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;\red131\green187\blue229;}
+{\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
 \f0\fs16 \cf0 Fanout\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
-\i \cf2 L1\cf0 :SYS-TIMING_Y_FO_A}</string>
+\i \cf0 L1:SYS-TIMING_Y_FO_A}</string>
 									</dict>
 								</dict>
 								<dict>
@@ -8037,7 +8097,7 @@ GPS clock to get time stamp}</string>
 							<key>Text</key>
 							<dict>
 								<key>Text</key>
-								<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+								<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -8964,7 +9024,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9014,7 +9074,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9064,7 +9124,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9114,7 +9174,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9164,7 +9224,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9214,7 +9274,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9264,7 +9324,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9314,7 +9374,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9364,7 +9424,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9414,7 +9474,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9464,7 +9524,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9514,7 +9574,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9564,7 +9624,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9614,7 +9674,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9664,7 +9724,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9768,7 +9828,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -9823,7 +9883,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -10066,7 +10126,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -10993,7 +11053,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11043,7 +11103,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11093,7 +11153,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11143,7 +11203,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11193,7 +11253,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11243,7 +11303,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11293,7 +11353,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11343,7 +11403,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11393,7 +11453,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11443,7 +11503,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11493,7 +11553,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11543,7 +11603,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11593,7 +11653,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11643,7 +11703,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11693,7 +11753,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11797,7 +11857,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -11852,7 +11912,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -12099,7 +12159,7 @@ GPS clock to get time stamp}</string>
 									<key>Text</key>
 									<dict>
 										<key>Text</key>
-										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+										<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13026,7 +13086,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13076,7 +13136,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13126,7 +13186,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13176,7 +13236,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13226,7 +13286,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13276,7 +13336,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13326,7 +13386,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13376,7 +13436,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13426,7 +13486,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13476,7 +13536,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13526,7 +13586,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13576,7 +13636,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13626,7 +13686,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13676,7 +13736,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13726,7 +13786,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13830,7 +13890,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -13885,7 +13945,7 @@ GPS clock to get time stamp}</string>
 											<key>Text</key>
 											<dict>
 												<key>Text</key>
-												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+												<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
@@ -16485,7 +16545,7 @@ GPS clock to get time stamp}</string>
 				<string>YES</string>
 			</dict>
 			<key>HPages</key>
-			<integer>4</integer>
+			<integer>3</integer>
 			<key>KeepToScale</key>
 			<false/>
 			<key>Layers</key>
@@ -16637,7 +16697,7 @@ GPS clock to get time stamp}</string>
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {2046, 1300}}</string>
+				<string>{{0, 0}, {630, 733}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
@@ -16656,7 +16716,7 @@ GPS clock to get time stamp}</string>
 			<key>CanvasOrigin</key>
 			<string>{0, 0}</string>
 			<key>CanvasSize</key>
-			<string>{2046, 1300}</string>
+			<string>{630, 733}</string>
 			<key>ColumnAlign</key>
 			<integer>1</integer>
 			<key>ColumnSpacing</key>
@@ -17317,7 +17377,7 @@ Left: CNS clock, back, detail}</string>
 				<string>YES</string>
 			</dict>
 			<key>HPages</key>
-			<integer>4</integer>
+			<integer>2</integer>
 			<key>KeepToScale</key>
 			<false/>
 			<key>Layers</key>
@@ -17389,7 +17449,7 @@ Left: CNS clock, back, detail}</string>
 			<key>UniqueID</key>
 			<integer>2</integer>
 			<key>VPages</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>ActiveLayerIndex</key>
@@ -17399,7 +17459,7 @@ Left: CNS clock, back, detail}</string>
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {2046, 1300}}</string>
+				<string>{{0, 0}, {630, 733}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
@@ -17418,7 +17478,7 @@ Left: CNS clock, back, detail}</string>
 			<key>CanvasOrigin</key>
 			<string>{0, 0}</string>
 			<key>CanvasSize</key>
-			<string>{2046, 1300}</string>
+			<string>{630, 733}</string>
 			<key>ColumnAlign</key>
 			<integer>1</integer>
 			<key>ColumnSpacing</key>
@@ -18081,7 +18141,7 @@ Left: CNS clock, back, detail}</string>
 				<string>YES</string>
 			</dict>
 			<key>HPages</key>
-			<integer>4</integer>
+			<integer>2</integer>
 			<key>KeepToScale</key>
 			<false/>
 			<key>Layers</key>
@@ -18141,7 +18201,7 @@ Left: CNS clock, back, detail}</string>
 			<key>UniqueID</key>
 			<integer>3</integer>
 			<key>VPages</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>ActiveLayerIndex</key>
@@ -19312,24 +19372,24 @@ Left: CNS clock, back, detail}</string>
 		<integer>0</integer>
 		<key>Expanded_Canvases</key>
 		<array>
+			<string>Canvas 1</string>
 			<string>EX</string>
 			<string>EY</string>
-			<string>Canvas 1</string>
 		</array>
 		<key>Frame</key>
-		<string>{{0, 0}, {2560, 1380}}</string>
+		<string>{{-0, 4}, {735, 773}}</string>
 		<key>ShowInfo</key>
-		<true/>
+		<false/>
 		<key>ShowRuler</key>
 		<true/>
 		<key>Sidebar</key>
-		<true/>
+		<false/>
 		<key>SidebarWidth</key>
-		<integer>200</integer>
+		<integer>0</integer>
 		<key>TopSlabHeight</key>
 		<real>33</real>
 		<key>VisibleRegion</key>
-		<string>{{308.24174935828398, 607.69229017872021}, {1115.9340337730387, 706.04393569589115}}</string>
+		<string>{{435.16482262345971, 901.09887512938633}, {386.81317566529754, 329.67032016928772}}</string>
 		<key>Zoom</key>
 		<real>1.8200000524520874</real>
 		<key>ZoomValues</key>
